@@ -1,0 +1,144 @@
+.shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--ff-green);
+  /* Solid brand field, the way the guidelines use full-bleed colour. */
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: 0 20px 60px rgba(20, 10, 1, 0.28);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.mark {
+  background: var(--ff-orange);
+  color: var(--ff-white);
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+
+.wordmark {
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--ff-green);
+  line-height: 1.2;
+}
+
+.sub {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.lede {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--ff-white);
+  font-size: 15px;
+}
+
+.input:focus-visible {
+  border-color: var(--ff-orange);
+}
+
+.submit {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px 20px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--ff-orange);
+  color: var(--ff-white);
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--ff-orange-700);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* role="alert" so a screen reader announces a failed sign-in rather than
+   leaving the user waiting on a form that silently did nothing. */
+.error {
+  background: var(--neg-bg);
+  color: var(--neg);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.foot {
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.foot a {
+  color: var(--ff-orange);
+  font-weight: 600;
+}
+
+@media (max-width: 420px) {
+  .card {
+    padding: 30px 22px;
+  }
+}

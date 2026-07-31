@@ -1,0 +1,230 @@
+/* Shared layout for the ledger pages (transactions, inventory, orders, assets,
+   capital, users). The dashboard has its own module. */
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 30px 20px 64px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.title {
+  font-size: clamp(22px, 3.6vw, 30px);
+  font-weight: 900;
+}
+
+.lede {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 14px 16px;
+  border-top: 3px solid var(--ff-green);
+}
+
+.stat.neg {
+  border-top-color: var(--neg);
+}
+.stat.accent {
+  border-top-color: var(--ff-orange);
+}
+
+.statLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.statValue {
+  display: block;
+  font-family: var(--font-commissioner), sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 3px;
+}
+
+.panel {
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.panelTitle {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--ff-white);
+  font-size: 14px;
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  border-color: var(--ff-orange);
+}
+
+.submit {
+  padding: 10px 22px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--ff-green);
+  color: var(--ff-white);
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--ff-green-700);
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.error {
+  background: var(--neg-bg);
+  color: var(--neg);
+  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.tableWrap table {
+  font-size: 13px;
+  min-width: 700px;
+}
+
+.tableWrap th {
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ff-green);
+  background: var(--ff-green-100);
+  padding: 9px 12px;
+  white-space: nowrap;
+}
+
+.tableWrap td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 22px 0;
+  text-align: center;
+}
+
+.pill {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pillIn {
+  background: var(--pos-bg);
+  color: var(--pos);
+}
+.pillOut {
+  background: var(--neg-bg);
+  color: var(--neg);
+}
+.pillPending {
+  background: var(--ff-orange-100);
+  color: var(--ff-orange-700);
+}
+.pillDone {
+  background: var(--pos-bg);
+  color: var(--pos);
+}
+.pillDead {
+  background: #eee;
+  color: #777;
+}
+
+.rowBtn {
+  background: none;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.rowBtn:hover {
+  border-color: var(--ff-orange);
+  color: var(--ff-orange);
+}
+
+.rowBtnPrimary {
+  border-color: var(--ff-green);
+  color: var(--ff-green);
+}
+.rowBtnPrimary:hover {
+  background: var(--ff-green);
+  color: var(--ff-white);
+}

@@ -1,0 +1,122 @@
+.wrap {
+  min-height: 100vh;
+}
+
+.bar {
+  background: var(--ff-green);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 12px rgba(20, 10, 1, 0.2);
+}
+
+.inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+.mark {
+  background: var(--ff-orange);
+  color: var(--ff-white);
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+}
+
+.wordmark {
+  display: block;
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--ff-white);
+  line-height: 1.2;
+}
+
+.sub {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ff-cream);
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.link {
+  color: var(--ff-cream);
+  text-decoration: none;
+  font-family: var(--font-commissioner), sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+.link:hover {
+  background: var(--ff-green-700);
+  color: var(--ff-white);
+}
+
+.out {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.who {
+  color: var(--ff-cream);
+  font-size: 12px;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.signout {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  color: var(--ff-white);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.signout:hover {
+  background: var(--ff-orange);
+  border-color: var(--ff-orange);
+}
+
+@media (max-width: 720px) {
+  .inner {
+    gap: 12px;
+  }
+  .nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+}

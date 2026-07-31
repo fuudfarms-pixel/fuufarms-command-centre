@@ -1,0 +1,51 @@
+/* FUUD Farms Limited — design tokens.
+   Ported from `Fuud Farms Design System/tokens/colors.css`. The original tracker
+   hardcoded #2D6A2D / #E07B2A, which are close enough to the real brand colours
+   to look like a mistake rather than a choice. These are the real ones. */
+
+:root {
+  /* Brand core */
+  --ff-green: #315c2b;
+  --ff-orange: #f33701;
+  --ff-gold: #d59331;
+  --ff-cream: #fee89e;
+  --ff-black: #140a01;
+  --ff-white: #ffffff;
+
+  /* Tints & shades */
+  --ff-green-700: #274a22;
+  --ff-green-100: #e6efe4;
+  --ff-orange-700: #c72d01;
+  --ff-orange-100: #fde3da;
+  --ff-gold-100: #f7e9d0;
+  --ff-cream-50: #fff7dd;
+  --ff-offwhite: #faf8f4;
+
+  /* Semantic */
+  --surface-page: var(--ff-offwhite);
+  --surface-card: var(--ff-white);
+  --surface-inverse: var(--ff-green);
+  --surface-accent: var(--ff-orange);
+  --border-subtle: #e8e2d8;
+
+  --text-heading: var(--ff-green);
+  --text-body: var(--ff-black);
+  --text-muted: #5c554e;
+  --text-on-color: var(--ff-white);
+
+  /* Data semantics — money going the right way vs the wrong way. Deliberately
+     NOT the brand orange, which is used for emphasis and would otherwise read
+     as an error state. */
+  --pos: #2f7d32;
+  --pos-bg: #e6efe4;
+  --neg: #c0392b;
+  --neg-bg: #fadbd8;
+
+  --focus-ring: 0 0 0 3px rgba(243, 55, 1, 0.35);
+  --shadow-card: 0 2px 12px rgba(20, 10, 1, 0.08);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+}

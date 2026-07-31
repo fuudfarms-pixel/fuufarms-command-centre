@@ -1,0 +1,137 @@
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+
+.title {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 900;
+}
+
+.lede {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.netWorth {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.netWorth strong {
+  font-family: var(--font-commissioner), sans-serif;
+  font-size: 26px;
+  color: var(--ff-green);
+}
+
+/* auto-fit rather than a fixed column count, so this degrades to one column on a
+   phone without a media query — a trader checking stock in a market will be on
+   one. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.kpi {
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--ff-green);
+  box-shadow: var(--shadow-card);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.kpi.pos {
+  border-left-color: var(--pos);
+}
+.kpi.neg {
+  border-left-color: var(--neg);
+}
+.kpi.accent {
+  border-left-color: var(--ff-orange);
+}
+
+.kpiLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.kpiValue {
+  font-family: var(--font-commissioner), sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ff-black);
+  line-height: 1.1;
+}
+
+.kpiSub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.panel {
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 22px;
+}
+
+.panelTitle {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+/* The table scrolls inside its own container so the page body never scrolls
+   sideways. */
+.tableWrap {
+  overflow-x: auto;
+}
+
+.tableWrap table {
+  font-size: 13px;
+  min-width: 720px;
+}
+
+.tableWrap th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ff-green);
+  background: var(--ff-green-100);
+  padding: 9px 12px;
+  white-space: nowrap;
+}
+
+.tableWrap td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}

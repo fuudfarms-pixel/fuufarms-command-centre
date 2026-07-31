@@ -1,0 +1,18 @@
+node_modules
+.next
+out
+build
+
+# Secrets. .env.example is committed; anything real is not.
+.env
+.env*.local
+!.env.example
+
+# Drizzle
+drizzle/meta/_journal.json.bak
+
+.DS_Store
+*.pem
+npm-debug.log*
+tsconfig.tsbuildinfo
+next-env.d.ts
