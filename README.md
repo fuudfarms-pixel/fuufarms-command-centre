@@ -85,34 +85,50 @@ error rather than an opaque build failure.
 
 ## Security
 
-**Close self-registration in the Neon Console.** `disableSignUp` defaults to `false`, and
-the auth endpoint is reachable directly — a `POST` to `/sign-up/email` with an `Origin`
-header creates a working account without ever touching this app. The `INVITE_TOKEN` gate
-here does **not** protect that path, because the request never reaches our code.
+**The auth endpoint is reachable without going through this app.** A `POST` to
+`/sign-up/email` with an `Origin` header creates a working account and returns a session —
+demonstrated with one `curl` during development. The `INVITE_TOKEN` gate on our sign-up page
+does **not** protect that path, because the request never reaches our code.
 
-Before this is exposed to the internet, in Neon Console → Auth:
+`disableSignUp` is now **true**, which closes the email/password route (verified: the
+endpoint returns `EMAIL_AND_PASSWORD_SIGN_UP_IS_NOT_ENABLED`). Note that Neon's public docs
+still say restricted sign-up is "coming soon" — the product is ahead of the documentation.
 
-- `disableSignUp` → **true**
-- Google OAuth → **off**. It is on by default with shared credentials, and every current
-  `better-auth` advisory is in an OAuth path.
+Remaining, in Neon Console → Auth:
+
+- Google OAuth → **off**. On by default with shared credentials. `disableSignUp` governs
+  email/password, so social sign-in is plausibly still an open registration path — and every
+  current `better-auth` advisory is in OAuth code.
 - Organization plugin → **off** (unused, and carries its own advisory)
 - `allow_localhost` → **off**
-- `trusted_origins` → your real domain
+- `trusted_origins` → the App Hosting URL
+
+Because sign-up cannot be relied on to stay shut, the app **fails closed independently**:
+Neon assigns new accounts `role='user'`, which is not one of ours, so `parseRoles` drops it
+and the account has no roles at all. See below.
 
 Known dependency issue: `@neondatabase/auth@0.4.2-beta` pins `better-auth@1.4.18`, and the
 advisories need `≥1.6.22`. There is no newer SDK. All of them are in OAuth / OIDC /
 magic-link / email-OTP paths, none of which this app uses, and the server side runs on
 Neon's infrastructure. Revisit when Neon ships a patched SDK.
 
-Authorisation is enforced **at the point of use**, not by middleware: every page calls
-`requireUser()` and every server action calls `requireRole()` (`lib/auth/guard.ts`). A server
-action can be POSTed directly regardless of routing, so that is the only layer that counts.
+Authorisation is enforced **at the point of use**, not by middleware. Every page that shows
+business data calls `requireMember()` — being signed in is not enough, a real role is
+required, and anything else redirects to `/no-access`. Every server action calls
+`requireRole()`. A server action can be POSTed directly regardless of routing, so that is the
+only layer that counts.
+
 `proxy.ts` only redirects unauthenticated navigation, and deliberately skips non-GET
 requests — Neon Auth's middleware does not recognise a session on POST, which otherwise
 bounces every form submission to the login page.
 
 Roles: `superadmin` (everything, plus user management) → `admin` (full ledger, can delete)
-→ `staff` (read and record, cannot delete).
+→ `staff` (read and record, cannot delete). An unrecognised role means no access.
+
+**Changing a role revokes that user's sessions.** The role travels in the session rather
+than being re-read per request, so without this a demotion left the person's live session
+with full access until they happened to sign out. The cost is that a promotion also requires
+signing back in.
 
 ## Deploying
 
