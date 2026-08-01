@@ -36,15 +36,17 @@ env:
     availability:
       - RUNTIME
 
-  # Secrets live in Cloud Secret Manager and are referenced, never inlined.
-  # Create them with:
-  #   firebase apphosting:secrets:set DATABASE_URL
-  #   firebase apphosting:secrets:set NEON_AUTH_COOKIE_SECRET
-  - variable: DATABASE_URL
-    secret: DATABASE_URL
-    availability:
-      - RUNTIME
+  # DATABASE_URL is deliberately NOT declared here.
+  #
+  # It is set in the Firebase console (App Hosting -> command-centre -> Settings
+  # -> Environment variables), which sits at the top of the precedence order and
+  # overrides this file. Declaring it here as well would mean either committing
+  # the connection string to git, or referencing a Secret Manager entry that must
+  # exist before the first rollout — a dangling reference fails the deploy.
+  #
+  # Locally it comes from .env.local, which is gitignored.
 
+  # This one is already in Secret Manager, created and IAM-granted.
   - variable: NEON_AUTH_COOKIE_SECRET
     secret: NEON_AUTH_COOKIE_SECRET
     availability:

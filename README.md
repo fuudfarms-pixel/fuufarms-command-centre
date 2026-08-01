@@ -126,7 +126,7 @@ One-time setup:
 firebase apphosting:backends:create --project fuudfarms-command-centre-c5b53
 #   ... connects the GitHub repo and picks a region (browser step)
 
-firebase apphosting:secrets:set DATABASE_URL             # the PROD Neon string
+# DATABASE_URL is set in the Firebase console instead — see below
 firebase apphosting:secrets:set NEON_AUTH_COOKIE_SECRET  # openssl rand -base64 32
 ```
 
