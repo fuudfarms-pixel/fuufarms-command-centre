@@ -80,6 +80,14 @@ export async function setRole(userId: string, role: string): Promise<void> {
   }
 
   await db.execute(sql`update neon_auth."user" set role = ${role} where id = ${userId}`);
+
+  // The role is carried in the session, not read fresh on every request —
+  // verified: demoting a user in the database left their existing session with
+  // full access until they signed out. Revoking sessions makes the change take
+  // effect now, which is the only safe behaviour for a demotion. The cost is
+  // that a promotion also requires signing back in.
+  await db.execute(sql`delete from neon_auth.session where "userId" = ${userId}`);
+
   await record(db as never, actor, 'user.setRole', 'neon_auth.user', userId, null, { role });
   revalidatePath('/admin/users');
 }

@@ -116,18 +116,35 @@ Roles: `superadmin` (everything, plus user management) → `admin` (full ledger,
 
 ## Deploying
 
-Firebase Hosting in front of Cloud Run, so everything is one origin — which is what Neon
-Auth's cookies require.
+**Firebase App Hosting**, project `fuudfarms-command-centre-c5b53`. It builds with Cloud
+Build and serves on Cloud Run, but everything is managed through Firebase and deploys happen
+on push to `main`. Config lives in `apphosting.yaml`.
+
+One-time setup:
 
 ```bash
-gcloud run deploy fuudfarms-command-centre --source . --region europe-west1
-firebase deploy --only hosting
+firebase apphosting:backends:create --project fuudfarms-command-centre-c5b53
+#   ... connects the GitHub repo and picks a region (browser step)
+
+firebase apphosting:secrets:set DATABASE_URL             # the PROD Neon string
+firebase apphosting:secrets:set NEON_AUTH_COOKIE_SECRET  # openssl rand -base64 32
 ```
 
-Set the env vars on the Cloud Run service (`APP_ORIGIN` must be the public URL, and that URL
-must be in Neon's trusted origins). `next.config.ts` sets `output: 'standalone'`; note that
-`next start` does **not** work with it — run `node .next/standalone/server.js`, which is what
-the Dockerfile does.
+Then, after the first rollout produces a URL:
+
+1. Put that URL in `apphosting.yaml` as `APP_ORIGIN` and push.
+2. Add the same URL to **trusted origins** in the Neon Console, and turn off
+   `allow_localhost`. Sign-in fails with `MISSING_ORIGIN` otherwise.
+
+`output: 'standalone'` in `next.config.ts` is **required** — App Hosting runs the
+self-contained `server.js` it emits. Without it the build succeeds and the app fails to boot
+with errors that do not point at the cause. Note `next start` does *not* work with standalone
+either; locally, run `node .next/standalone/server.js`.
+
+Do not set `NODE_ENV` in `apphosting.yaml`; it breaks the Next.js buildpack.
+
+`deploy/Dockerfile` is not used by App Hosting. It is kept as an escape hatch for deploying
+to plain Cloud Run, and it is verified working.
 
 ## Layout
 

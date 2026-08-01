@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { transactions } from '@/db/schema';
-import { requireRole, requireUser } from '@/lib/auth/guard';
+import { requireRole } from '@/lib/auth/guard';
 import { record } from '@/lib/audit';
 import { type ActionState, ok, fail, text, money, isoDate, oneOf } from '@/lib/forms';
 import { INCOME_CATEGORIES, EXPENSE_CATEGORIES } from '@/lib/domain';
@@ -65,8 +65,4 @@ export async function deleteTransaction(id: string): Promise<void> {
   await record(db as never, user, 'transaction.delete', 'transactions', id, existing, null);
   revalidatePath('/transactions');
   revalidatePath('/');
-}
-
-export async function whoAmI() {
-  return requireUser();
 }

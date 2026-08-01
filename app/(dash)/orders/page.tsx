@@ -1,7 +1,7 @@
 import { desc, eq, isNull } from 'drizzle-orm';
 import { db } from '@/db';
 import { inventoryItems, orderLines, orders } from '@/db/schema';
-import { requireUser } from '@/lib/auth/guard';
+import { requireMember } from '@/lib/auth/guard';
 import { formatKobo } from '@/lib/money';
 import { NewOrder } from './NewOrder';
 import { OrderActions } from './OrderActions';
@@ -18,7 +18,7 @@ const PILL: Record<string, string> = {
 };
 
 export default async function OrdersPage() {
-  await requireUser();
+  await requireMember();
 
   const [rows, items] = await Promise.all([
     db

@@ -1,7 +1,7 @@
 import { desc } from 'drizzle-orm';
 import { db } from '@/db';
 import { transactions } from '@/db/schema';
-import { requireUser } from '@/lib/auth/guard';
+import { requireMember } from '@/lib/auth/guard';
 import { canDelete } from '@/lib/auth/roles';
 import { formatKobo } from '@/lib/money';
 import { NewTransaction } from './NewTransaction';
@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Transactions — Command Centre' };
 
 export default async function TransactionsPage() {
-  const user = await requireUser();
+  const user = await requireMember();
   const rows = await db
     .select()
     .from(transactions)

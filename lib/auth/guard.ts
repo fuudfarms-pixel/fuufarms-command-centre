@@ -55,6 +55,28 @@ export async function requireUser(): Promise<CurrentUser> {
 }
 
 /**
+ * Gate for every page that shows business data.
+ *
+ * Being signed in is NOT enough. Neon Auth cannot restrict sign-up — "Anyone can
+ * sign up for your application by default … support for restricted signups is
+ * coming soon" — and the auth endpoint is reachable directly, so a stranger can
+ * mint themselves a valid session against this database without ever touching
+ * this app.
+ *
+ * Neon gives such an account `role = 'user'`, which is deliberately not one of
+ * ours. parseRoles() drops it, leaving no roles, and this check then refuses
+ * them. Access is granted only by a super admin assigning a real role, so the
+ * system fails closed: an unknown role is no access rather than some access.
+ */
+export async function requireMember(): Promise<CurrentUser> {
+  const user = await requireUser();
+
+  if (!hasAtLeast(user.roles, 'staff')) redirect('/no-access');
+
+  return user;
+}
+
+/**
  * Gate a page or action on a minimum role. Throws rather than redirects for
  * server actions, so a forbidden call fails loudly instead of silently
  * returning a login page as if it had succeeded.

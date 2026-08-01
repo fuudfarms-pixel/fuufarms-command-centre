@@ -1,7 +1,7 @@
 import { isNull, desc } from 'drizzle-orm';
 import { db } from '@/db';
 import { inventoryItems, inventoryMovements } from '@/db/schema';
-import { requireUser } from '@/lib/auth/guard';
+import { requireMember } from '@/lib/auth/guard';
 import { canDelete } from '@/lib/auth/roles';
 import { stockLines } from '@/lib/metrics';
 import { formatKobo } from '@/lib/money';
@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Inventory — Command Centre' };
 
 export default async function InventoryPage() {
-  const user = await requireUser();
+  const user = await requireMember();
 
   const [items, movements, recent] = await Promise.all([
     db.select().from(inventoryItems).where(isNull(inventoryItems.archivedAt)),

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { requireUser } from '@/lib/auth/guard';
+import { requireMember } from '@/lib/auth/guard';
 import { canManageUsers } from '@/lib/auth/roles';
 import { signOut } from '../auth/actions';
 import styles from './shell.module.css';
@@ -14,7 +14,7 @@ const LINKS = [
 ];
 
 export default async function DashLayout({ children }: { children: React.ReactNode }) {
-  const user = await requireUser();
+  const user = await requireMember();
   const links = canManageUsers(user.roles)
     ? [...LINKS, { href: '/admin/users', label: 'Users' }]
     : LINKS;

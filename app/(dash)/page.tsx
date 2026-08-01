@@ -1,4 +1,4 @@
-import { requireUser } from '@/lib/auth/guard';
+import { requireMember } from '@/lib/auth/guard';
 import { loadMetricsInput } from '@/lib/queries';
 import { computeMetrics } from '@/lib/metrics';
 import { formatKoboShort, formatKobo } from '@/lib/money';
@@ -28,7 +28,7 @@ function Kpi({
 }
 
 export default async function DashboardPage() {
-  const user = await requireUser();
+  const user = await requireMember();
   const metrics = computeMetrics(await loadMetricsInput());
 
   const signed = (kobo: number): 'pos' | 'neg' => (kobo >= 0 ? 'pos' : 'neg');

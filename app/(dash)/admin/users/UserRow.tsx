@@ -37,7 +37,8 @@ export function UserRow({ user, isSelf }: { user: ManagedUser; isSelf: boolean }
           onChange={(e) =>
             run(
               () => setRole(user.id, e.target.value),
-              `Change ${user.name} to ${ROLE_LABELS[e.target.value as keyof typeof ROLE_LABELS]}?`
+              `Change ${user.name} to ${ROLE_LABELS[e.target.value as keyof typeof ROLE_LABELS]}?\n\n` +
+                'They will be signed out and must sign in again for it to take effect.'
             )
           }
           style={{

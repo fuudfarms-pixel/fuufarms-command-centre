@@ -1,0 +1,56 @@
+# Firebase App Hosting — build and runtime configuration.
+#
+# App Hosting builds with Cloud Build and serves on Cloud Run, managed through
+# Firebase. It relies on `output: 'standalone'` in next.config.ts to produce the
+# self-contained server.js it runs; without that the build succeeds and the app
+# fails to start with errors that do not point back to the cause.
+#
+# Deploys happen on push to the branch the backend is linked to (main).
+
+runConfig:
+  # Scale to zero: this is an internal tool used by a handful of people, and an
+  # always-warm instance costs money around the clock for no benefit. The trade
+  # is a few seconds on the first request after an idle period, while the
+  # container starts and opens its pooled connection to Neon.
+  minInstances: 0
+  maxInstances: 4
+  # Next.js handles concurrent requests fine; the default of 80 would let one
+  # instance hold 80 database checkouts, which is more than the pool wants.
+  concurrency: 40
+  cpu: 1
+  memoryMiB: 512
+
+env:
+  # Neon Auth's endpoint for this branch. Not a secret — it is a public URL, and
+  # holding it in plain config makes it obvious which branch a deploy points at.
+  - variable: NEON_AUTH_BASE_URL
+    value: https://ep-spring-haze-asascr4p.neonauth.c-4.eu-central-1.aws.neon.tech/neondb/auth
+    availability:
+      - RUNTIME
+
+  # The public origin. Neon Auth requires it on sign-up requests, and it must
+  # also be listed under trusted origins in the Neon Console or sign-in fails
+  # with MISSING_ORIGIN. Set to the real backend URL after the first rollout —
+  # it cannot be known before the backend exists.
+  - variable: APP_ORIGIN
+    value: https://REPLACE-AFTER-FIRST-ROLLOUT
+    availability:
+      - RUNTIME
+
+  # Secrets live in Cloud Secret Manager and are referenced, never inlined.
+  # Create them with:
+  #   firebase apphosting:secrets:set DATABASE_URL
+  #   firebase apphosting:secrets:set NEON_AUTH_COOKIE_SECRET
+  - variable: DATABASE_URL
+    secret: DATABASE_URL
+    availability:
+      - RUNTIME
+
+  - variable: NEON_AUTH_COOKIE_SECRET
+    secret: NEON_AUTH_COOKIE_SECRET
+    availability:
+      - RUNTIME
+
+# Deliberately NOT set: NODE_ENV. Setting it to production here breaks the
+# Next.js buildpack (GoogleCloudPlatform/buildpacks#414); App Hosting sets the
+# runtime environment itself.

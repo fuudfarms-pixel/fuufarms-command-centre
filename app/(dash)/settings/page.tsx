@@ -1,7 +1,7 @@
 import { desc } from 'drizzle-orm';
 import { db } from '@/db';
 import { capitalEvents } from '@/db/schema';
-import { requireUser } from '@/lib/auth/guard';
+import { requireMember } from '@/lib/auth/guard';
 import { canDelete } from '@/lib/auth/roles';
 import { formatKobo } from '@/lib/money';
 import { NewCapitalEvent } from './NewCapitalEvent';
@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Capital — Command Centre' };
 
 export default async function SettingsPage() {
-  const user = await requireUser();
+  const user = await requireMember();
   const rows = await db
     .select()
     .from(capitalEvents)
