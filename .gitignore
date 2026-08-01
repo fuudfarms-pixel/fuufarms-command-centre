@@ -3,9 +3,15 @@ node_modules
 out
 build
 
-# Secrets. .env.example is committed; anything real is not.
-.env
-.env*.local
+# Secrets. Only the template is committed.
+#
+# Deliberately stricter than the Next.js convention. Next treats .env.production
+# and .env.development as committed files for non-secret defaults, and only
+# gitignores the .local variants — so `.env.production` containing a database
+# password would be committed silently, which is the opposite of what the name
+# suggests to most people. Everything matching .env* is ignored here, and the
+# template is the single exception.
+.env*
 !.env.example
 
 # Drizzle
