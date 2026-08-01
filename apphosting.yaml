@@ -29,11 +29,10 @@ env:
       - RUNTIME
 
   # The public origin. Neon Auth requires it on sign-up requests, and it must
-  # also be listed under trusted origins in the Neon Console or sign-in fails
-  # with MISSING_ORIGIN. Set to the real backend URL after the first rollout —
-  # it cannot be known before the backend exists.
+  # also be listed under trusted origins in the Neon Console, or sign-in fails
+  # with MISSING_ORIGIN. Update this if a custom domain is added.
   - variable: APP_ORIGIN
-    value: https://REPLACE-AFTER-FIRST-ROLLOUT
+    value: https://command-centre--fuudfarms-command-centre-c5b53.europe-west4.hosted.app
     availability:
       - RUNTIME
 
