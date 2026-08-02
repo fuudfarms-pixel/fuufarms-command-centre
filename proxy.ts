@@ -37,5 +37,5 @@ export default function proxy(request: NextRequest, event: unknown) {
  * needing to be added to a list.
  */
 export const config = {
-  matcher: ['/((?!auth/|api/auth/|api/diag|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!auth/|api/auth/|_next/static|_next/image|favicon.ico).*)'],
 };
