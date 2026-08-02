@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SignInForm } from './SignInForm';
 import styles from '../auth.module.css';
 
@@ -31,6 +32,10 @@ export default async function SignInPage({
         <p className={styles.lede}>Capital, stock, orders and assets — in one place.</p>
 
         <SignInForm notice={notice} />
+
+        <p className={styles.foot}>
+          <Link href="/auth/forgot-password">Forgot your password?</Link>
+        </p>
       </div>
     </main>
   );
