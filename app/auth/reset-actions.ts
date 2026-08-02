@@ -23,18 +23,31 @@ export async function requestReset(
 
   const origin = requireEnv('APP_ORIGIN');
 
+  // Do NOT swallow failures here. Neon already protects against address
+  // enumeration itself — it answers "if this email exists in our system, check
+  // your email" whether or not the account is real — so there is nothing to hide
+  // by catching. Swallowing only hid a genuine 403 (the deployed origin was not
+  // in Neon's trusted list), which showed "check your email" while no email was
+  // ever sent, and made a configuration problem look like broken delivery.
   try {
-    await getAuth().requestPasswordReset({
+    const { error } = await getAuth().requestPasswordReset({
       email,
       redirectTo: `${origin}/auth/reset-password`,
     });
+
+    if (error) {
+      console.error('requestPasswordReset rejected', error);
+      return {
+        error:
+          'Could not send the reset email. This is a configuration problem, not a wrong ' +
+          'address — tell whoever administers this site.',
+      };
+    }
   } catch (e) {
-    console.error('requestPasswordReset failed', e);
-    // Fall through to the same message either way — see below.
+    console.error('requestPasswordReset threw', e);
+    return { error: 'Could not reach the sign-in service. Try again in a moment.' };
   }
 
-  // Deliberately identical whether or not the address has an account. Telling
-  // the difference would let anyone check who has access to the books.
   redirect('/auth/forgot-password?sent=1');
 }
 
