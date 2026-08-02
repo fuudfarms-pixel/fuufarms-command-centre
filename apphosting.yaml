@@ -47,12 +47,6 @@ env:
   # Locally it comes from .env.local, which is gitignored.
 
   # This one is already in Secret Manager, created and IAM-granted.
-  # Temporary: enables SDK debug logging while the INVALID_ORIGIN issue is open.
-  - variable: NEON_AUTH_DEBUG
-    value: "1"
-    availability:
-      - RUNTIME
-
   - variable: NEON_AUTH_COOKIE_SECRET
     secret: NEON_AUTH_COOKIE_SECRET
     availability:

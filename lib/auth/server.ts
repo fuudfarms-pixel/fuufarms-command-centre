@@ -24,12 +24,9 @@ export function getAuth(): Auth {
     instance = createNeonAuth({
       baseUrl: requireEnv('NEON_AUTH_BASE_URL'),
       cookies: { secret: requireEnv('NEON_AUTH_COOKIE_SECRET') },
-      // Temporary. Sign-in on the deployed app is rejected with INVALID_ORIGIN
-      // while the identical request sent straight to Neon with the public origin
-      // reaches password validation, and the SDK resolves the origin from
-      // several sources — the request headers, the referer, and Next's own
-      // header store — so this reports which one it actually used.
-      // Set NEON_AUTH_DEBUG=1 on the backend to enable; remove once resolved.
+      // Set NEON_AUTH_DEBUG=1 to trace the SDK's proxying — it reports the origin
+      // it resolves and the upstream status, which is what identified the origin
+      // rejection.
       ...(process.env.NEON_AUTH_DEBUG ? { logLevel: 'debug' as const } : {}),
     });
   }
