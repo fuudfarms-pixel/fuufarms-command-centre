@@ -45,10 +45,11 @@ describe('privilege ordering', () => {
 });
 
 describe('capability helpers', () => {
-  test('only superadmin manages users', () => {
+  test('admin and above manage users — the Console can only assign admin', () => {
     assert.equal(canManageUsers(['superadmin']), true);
-    assert.equal(canManageUsers(['admin']), false);
+    assert.equal(canManageUsers(['admin']), true);
     assert.equal(canManageUsers(['staff']), false);
+    assert.equal(canManageUsers([]), false);
   });
 
   test('staff can write but not delete', () => {

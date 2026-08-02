@@ -13,8 +13,8 @@ export const ROLE_LABELS: Record<Role, string> = {
 };
 
 export const ROLE_DESCRIPTIONS: Record<Role, string> = {
-  superadmin: 'Full access, including user management.',
-  admin: 'Full access to the ledger. Cannot manage users.',
+  superadmin: 'Full access, including user management. Outranks admin.',
+  admin: 'Full access, including user management.',
   staff: 'Read the books and record entries. Cannot delete or manage users.',
 };
 
@@ -39,6 +39,15 @@ export function hasAtLeast(roles: Role[], required: Role): boolean {
   return best >= RANK[required];
 }
 
-export const canManageUsers = (roles: Role[]) => hasAtLeast(roles, 'superadmin');
+/**
+ * `admin` manages users, not just `superadmin`.
+ *
+ * The Neon Console can only assign `admin` — its Users page offers a "Make
+ * admin" action and nothing finer. Requiring `superadmin` here would mean the
+ * only way to grant user management is raw SQL against neon_auth, which is not a
+ * reasonable thing to ask of whoever runs this next. `superadmin` still exists
+ * and still outranks `admin`; it simply no longer gates this one capability.
+ */
+export const canManageUsers = (roles: Role[]) => hasAtLeast(roles, 'admin');
 export const canDelete = (roles: Role[]) => hasAtLeast(roles, 'admin');
 export const canWrite = (roles: Role[]) => hasAtLeast(roles, 'staff');

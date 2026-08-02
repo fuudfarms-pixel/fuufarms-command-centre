@@ -11,7 +11,7 @@ export const metadata = { title: 'Users — Command Centre' };
 export default async function UsersPage() {
   // Gated here AND in every action — a server action can be invoked directly,
   // so page-level protection alone would not be protection.
-  const me = await requireRole('superadmin');
+  const me = await requireRole('admin');
   const users = await listUsers();
 
   return (

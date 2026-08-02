@@ -6,7 +6,7 @@ import { sql } from 'drizzle-orm';
 import { db } from '@/db';
 import { requireRole } from '@/lib/auth/guard';
 import { record } from '@/lib/audit';
-import { ROLES, isRole } from '@/lib/auth/roles';
+import { ROLES, isRole, canManageUsers } from '@/lib/auth/roles';
 import type { ManagedUser } from './types';
 import { type ActionState, fail, text, oneOf } from '@/lib/forms';
 import { requireEnv } from '@/lib/env';
@@ -17,7 +17,7 @@ import { requireEnv } from '@/lib/env';
  * mirroring it here would rot the first time they change it.
  */
 export async function listUsers(): Promise<ManagedUser[]> {
-  await requireRole('superadmin');
+  await requireRole('admin');
 
   const result = await db.execute(sql`
     select id, email, name, role, coalesce(banned, false) as banned, "createdAt"::text as "createdAt"
@@ -31,7 +31,7 @@ export async function listUsers(): Promise<ManagedUser[]> {
 }
 
 export async function createUser(_prev: ActionState, form: FormData): Promise<ActionState> {
-  const actor = await requireRole('superadmin');
+  const actor = await requireRole('admin');
 
   const email = text(form, 'email');
   const name = text(form, 'name');
@@ -70,13 +70,14 @@ export async function createUser(_prev: ActionState, form: FormData): Promise<Ac
 }
 
 export async function setRole(userId: string, role: string): Promise<void> {
-  const actor = await requireRole('superadmin');
+  const actor = await requireRole('admin');
   if (!isRole(role)) throw new Error('Unknown role.');
 
-  // A super admin removing their own last privilege would lock everyone out of
-  // user management with no way back in except SQL.
-  if (userId === actor.id && role !== 'superadmin') {
-    throw new Error('You cannot remove your own super admin role.');
+  // Demoting yourself out of user management could leave nobody able to grant it
+  // back, with no way in except raw SQL. Expressed against the capability rather
+  // than a specific role name, so it stays correct if the role model changes.
+  if (userId === actor.id && !canManageUsers([role])) {
+    throw new Error('You cannot remove your own access to user management.');
   }
 
   await db.execute(sql`update neon_auth."user" set role = ${role} where id = ${userId}`);
@@ -93,7 +94,7 @@ export async function setRole(userId: string, role: string): Promise<void> {
 }
 
 export async function setBanned(userId: string, banned: boolean): Promise<void> {
-  const actor = await requireRole('superadmin');
+  const actor = await requireRole('admin');
   if (userId === actor.id) throw new Error('You cannot ban yourself.');
 
   await db.execute(sql`update neon_auth."user" set banned = ${banned} where id = ${userId}`);
