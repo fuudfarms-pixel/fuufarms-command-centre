@@ -15,21 +15,35 @@ body {
   height: 100%;
 }
 
+/* Roboto for body and tables, Commissioner for headings — per the type tokens. */
 body {
-  font-family: var(--font-roboto), system-ui, sans-serif;
+  font-family: var(--font-secondary);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
   background: var(--surface-page);
   color: var(--text-body);
   -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
 }
 
 h1,
 h2,
 h3,
-h4 {
-  font-family: var(--font-commissioner), system-ui, sans-serif;
-  line-height: 1.15;
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
   color: var(--text-heading);
+  line-height: var(--leading-tight);
+}
+
+/* Links are Blazing Flame, hovering to Hunter Green. Straight from the type tokens. */
+a {
+  color: var(--blazing-flame);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hunter-green);
 }
 
 input,
@@ -40,17 +54,28 @@ textarea {
   color: inherit;
 }
 
-/* Visible focus everywhere, and only for keyboard users. A finance tool gets
-   driven by keyboard far more than a marketing site does. */
+/* Orange focus halo, matching --focus-ring. Only for keyboard users: a finance
+   tool is driven by keyboard far more than a marketing page is. */
 :focus-visible {
   outline: none;
-  box-shadow: var(--focus-ring);
+  box-shadow: 0 0 0 3px var(--focus-ring);
   border-radius: var(--radius-sm);
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+}
+
+/* ---- Cross-cutting primitives ---- */
+
+/* Letterspaced uppercase wayfinding labels — "LIMITED", "BRAND GUIDELINES". */
+.caps {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
 }
 
 /* Tabular figures so columns of money line up digit-for-digit. */
@@ -63,6 +88,14 @@ table {
 }
 .neg {
   color: var(--neg);
+}
+
+/* Section headings in the brand book are Title Case with a terminal period, set
+   in Blazing Flame. Applied to panel titles. */
+.sectionTitle {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  color: var(--text-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

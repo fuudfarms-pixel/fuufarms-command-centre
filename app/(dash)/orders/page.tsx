@@ -62,13 +62,13 @@ export default async function OrdersPage() {
           <span className={styles.statLabel}>Open orders</span>
           <span className={`${styles.statValue} num`}>{open.length}</span>
         </div>
-        <div className={styles.stat}>
+        <div className={`${styles.stat} ${styles.brand}`}>
           <span className={styles.statLabel}>Expected income</span>
           <span className={`${styles.statValue} num`}>
             {formatKobo(open.reduce((s, r) => s + value(r), 0))}
           </span>
         </div>
-        <div className={styles.stat}>
+        <div className={`${styles.stat} ${styles.brand}`}>
           <span className={styles.statLabel}>Delivered</span>
           <span className={`${styles.statValue} num`}>
             {rows.filter((r) => r.status === 'delivered').length}
@@ -82,7 +82,7 @@ export default async function OrdersPage() {
         </section>
       ) : (
         <section className={styles.panel}>
-          <h2 className={styles.panelTitle}>New order</h2>
+          <h2 className={styles.panelTitle}>New Order.</h2>
           <NewOrder
             items={items.map((i) => ({ value: i.id, label: `${i.product} (${i.unit})` }))}
           />
@@ -90,7 +90,7 @@ export default async function OrdersPage() {
       )}
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>All orders</h2>
+        <h2 className={styles.panelTitle}>All Orders.</h2>
         {rows.length === 0 ? (
           <p className={styles.empty}>No orders yet.</p>
         ) : (

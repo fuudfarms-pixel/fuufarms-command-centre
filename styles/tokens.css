@@ -1,51 +1,98 @@
 /* FUUD Farms Limited — design tokens.
-   Ported from `Fuud Farms Design System/tokens/colors.css`. The original tracker
-   hardcoded #2D6A2D / #E07B2A, which are close enough to the real brand colours
-   to look like a mistake rather than a choice. These are the real ones. */
+   Ported verbatim from `FUUD Design System (1)/tokens/{colors,typography,spacing}.css`.
+   Values here are the brand's; do not adjust them to taste. Anything this app adds
+   beyond the system is grouped at the bottom and labelled. */
 
 :root {
-  /* Brand core */
-  --ff-green: #315c2b;
-  --ff-orange: #f33701;
-  --ff-gold: #d59331;
-  --ff-cream: #fee89e;
-  --ff-black: #140a01;
-  --ff-white: #ffffff;
+  /* ---- Primary palette (Brand Guidelines p.21) ---- */
+  --hunter-green: #315c2b;
+  --blazing-flame: #f33701;
 
-  /* Tints & shades */
-  --ff-green-700: #274a22;
-  --ff-green-100: #e6efe4;
-  --ff-orange-700: #c72d01;
-  --ff-orange-100: #fde3da;
-  --ff-gold-100: #f7e9d0;
-  --ff-cream-50: #fff7dd;
-  --ff-offwhite: #faf8f4;
+  /* ---- Secondary palette (p.22) ---- */
+  --vanilla-custard: #fee89e;
+  --harvest-gold: #d59331;
+  --pitch-black: #140a01;
 
-  /* Semantic */
-  --surface-page: var(--ff-offwhite);
-  --surface-card: var(--ff-white);
-  --surface-inverse: var(--ff-green);
-  --surface-accent: var(--ff-orange);
-  --border-subtle: #e8e2d8;
+  /* ---- Neutrals ---- */
+  --white: #ffffff;
+  --off-white: #fffdf8;
+  --leaf-outline: #f5e3c3;
+  --sage-outline: #d8e2d4;
 
-  --text-heading: var(--ff-green);
-  --text-body: var(--ff-black);
-  --text-muted: #5c554e;
-  --text-on-color: var(--ff-white);
+  /* ---- Semantic aliases ---- */
+  --brand-primary: var(--hunter-green);
+  --brand-accent: var(--blazing-flame);
+  --surface-page: var(--off-white);
+  --surface-card: var(--white);
+  --surface-inverse: var(--hunter-green);
+  --surface-dark: var(--pitch-black);
+  --surface-tint: var(--vanilla-custard);
+  --text-heading: var(--pitch-black);
+  --text-body: #3b332c;
+  --text-muted: #8a7f72;
+  --text-on-dark: var(--white);
+  --text-accent: var(--blazing-flame);
+  --border-subtle: #efe7d8;
+  --border-strong: var(--hunter-green);
+  --focus-ring: rgba(243, 55, 1, 0.35);
 
-  /* Data semantics — money going the right way vs the wrong way. Deliberately
-     NOT the brand orange, which is used for emphasis and would otherwise read
-     as an error state. */
-  --pos: #2f7d32;
-  --pos-bg: #e6efe4;
-  --neg: #c0392b;
-  --neg-bg: #fadbd8;
+  /* ---- Type ---- */
+  --font-primary: var(--font-commissioner), ui-sans-serif, system-ui, sans-serif;
+  --font-secondary: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+  --weight-black: 900;
 
-  --focus-ring: 0 0 0 3px rgba(243, 55, 1, 0.35);
-  --shadow-card: 0 2px 12px rgba(20, 10, 1, 0.08);
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+  --text-4xl: 48px;
+  --text-display: 64px;
 
-  --radius-sm: 8px;
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-body: 1.6;
+  --tracking-caps: 0.12em;
+
+  /* ---- Spacing ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* ---- Radii · swatch cards & buttons 12px, feature panels 24px ---- */
+  --radius-sm: 6px;
   --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
+
+  /* ---- Shadows · soft, warm, low-contrast ---- */
+  --shadow-card: 0 4px 16px rgba(20, 10, 1, 0.08);
+  --shadow-float: 0 12px 32px rgba(20, 10, 1, 0.14);
+  --border-hairline: 1px solid var(--border-subtle);
+
+  /* ================================================================
+     ADDITIONS — not in the brand kit.
+     The system is built for print and marketing and defines no colours
+     for financial data. A ledger has to distinguish money coming in
+     from money going out at a glance, and neither brand colour can do
+     that job: hunter green reads as "brand", and blazing flame is the
+     accent used for headings and CTAs, so borrowing it for losses would
+     make every heading look like an error.
+     ================================================================ */
+  --pos: #2f7d32;
+  --pos-surface: #eaf2e8;
+  --neg: #c0392b;
+  --neg-surface: #fadbd8;
 }

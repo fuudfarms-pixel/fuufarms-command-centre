@@ -25,7 +25,7 @@ export default async function UsersPage() {
 
       <section className={styles.summary}>
         {ROLES.map((r) => (
-          <div key={r} className={styles.stat}>
+          <div key={r} className={`${styles.stat} ${styles.brand}`}>
             <span className={styles.statLabel}>{ROLE_LABELS[r]}</span>
             <span className={`${styles.statValue} num`}>
               {users.filter((u) => parseRoles(u.role).includes(r)).length}
@@ -38,12 +38,12 @@ export default async function UsersPage() {
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Invite someone</h2>
+        <h2 className={styles.panelTitle}>Invite Someone.</h2>
         <NewUser />
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Accounts</h2>
+        <h2 className={styles.panelTitle}>Accounts.</h2>
         <div className={styles.tableWrap}>
           <table>
             <thead>

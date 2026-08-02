@@ -1,4 +1,5 @@
 import { requireMember } from '@/lib/auth/guard';
+import { LeafWatermark } from '@/components/Brand';
 import { loadMetricsInput } from '@/lib/queries';
 import { computeMetrics } from '@/lib/metrics';
 import { formatKoboShort, formatKobo } from '@/lib/money';
@@ -35,13 +36,14 @@ export default async function DashboardPage() {
 
   return (
     <main className={styles.page}>
+      <LeafWatermark className={styles.watermark} />
       <header className={styles.head}>
         <div>
           <h1 className={styles.title}>Dashboard</h1>
           <p className={styles.lede}>Signed in as {user.name}</p>
         </div>
         <div className={styles.netWorth}>
-          <span className={styles.kpiLabel}>Net worth</span>
+          <span className={styles.netWorthLabel}>Net worth</span>
           <strong className="num">{formatKoboShort(metrics.netWorthKobo)}</strong>
         </div>
       </header>
@@ -99,7 +101,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Stock margin</h2>
+        <h2 className={styles.panelTitle}>Stock Margin.</h2>
         {metrics.stock.length === 0 ? (
           <p className={styles.empty}>No stock recorded yet.</p>
         ) : (

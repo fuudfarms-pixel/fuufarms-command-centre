@@ -32,10 +32,15 @@ export default function proxy(request: NextRequest, event: unknown) {
 }
 
 /**
- * Deny by default: everything except the auth pages, the auth API and Next's own
- * static assets. A new route is protected the moment it exists rather than
- * needing to be added to a list.
+ * Deny by default: everything except the auth pages, the auth API and static
+ * assets. A new route is protected the moment it exists rather than needing to
+ * be added to a list.
+ *
+ * `brand/` holds the logo and leaf watermark, which the signed-OUT pages render.
+ * Without the exemption the middleware redirects those requests to the sign-in
+ * page, next/image gets HTML where it expected a PNG, and the logo renders
+ * broken on precisely the page everyone sees first.
  */
 export const config = {
-  matcher: ['/((?!auth/|api/auth/|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!auth/|api/auth/|brand/|_next/static|_next/image|favicon.ico).*)'],
 };

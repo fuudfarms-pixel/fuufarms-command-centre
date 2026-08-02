@@ -1,230 +1,321 @@
-/* Shared layout for the ledger pages (transactions, inventory, orders, assets,
-   capital, users). The dashboard has its own module. */
+/* Shared styles for the ledger pages.
+   Buttons, inputs, selects, cards and badges follow the measurements in
+   `FUUD Design System (1)/components/` rather than approximating them. */
 
 .page {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 30px 20px 64px;
+  padding: var(--space-6) var(--space-5) var(--space-9);
 }
 
 .head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   flex-wrap: wrap;
-  margin-bottom: 22px;
+  margin-bottom: var(--space-5);
 }
 
+/* Page titles: Commissioner Black, Pitch Black. */
 .title {
-  font-size: clamp(22px, 3.6vw, 30px);
-  font-weight: 900;
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+  font-weight: var(--weight-black);
+  letter-spacing: -0.01em;
 }
 
 .lede {
   color: var(--text-muted);
-  font-size: 13px;
-  margin-top: 2px;
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
 }
+
+/* ---- Stat cards (Card, variant=default, padding=sm) ---- */
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 12px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 .stat {
   background: var(--surface-card);
-  border-radius: var(--radius-md);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  padding: 14px 16px;
-  border-top: 3px solid var(--ff-green);
+  padding: var(--space-4);
+  min-width: 0;
 }
 
+/* A 1px brand rule as separator, the way the letterhead and invoice use them,
+   rather than a heavy coloured edge. */
 .stat.neg {
-  border-top-color: var(--neg);
+  border-top: 2px solid var(--neg);
 }
 .stat.accent {
-  border-top-color: var(--ff-orange);
+  border-top: 2px solid var(--blazing-flame);
+}
+.stat.brand {
+  border-top: 2px solid var(--hunter-green);
 }
 
 .statLabel {
   display: block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .statValue {
   display: block;
-  font-family: var(--font-commissioner), sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  margin-top: 3px;
+  font-family: var(--font-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-black);
+  color: var(--text-heading);
+  line-height: var(--leading-tight);
+  margin-top: var(--space-1);
 }
+
+/* ---- Panels (Card, variant=default, padding=md) ---- */
 
 .panel {
   background: var(--surface-card);
-  border-radius: var(--radius-md);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
 }
 
+/* Title Case with a terminal period, in Blazing Flame — the brand book's
+   section-heading convention. The period is set in the markup. */
 .panelTitle {
-  font-size: 14px;
-  font-weight: 800;
-  margin-bottom: 14px;
+  font-family: var(--font-primary);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--text-accent);
+  margin-bottom: var(--space-4);
 }
+
+/* ---- Forms (Input / Select) ---- */
 
 .form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--space-4);
   align-items: end;
 }
 
 .field label {
   display: block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 5px;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  color: var(--text-heading);
+  margin-bottom: var(--space-2);
 }
 
 .field input,
 .field select {
   width: 100%;
-  padding: 9px 11px;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-family: var(--font-secondary);
+  color: var(--text-body);
+  background: var(--surface-card);
   border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  background: var(--ff-white);
-  font-size: 14px;
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.field input:focus-visible,
-.field select:focus-visible {
-  border-color: var(--ff-orange);
+/* Inputs take a GREEN focus ring. The orange --focus-ring is reserved for
+   errors, per the Input component. */
+.field input:focus,
+.field select:focus {
+  border-color: var(--hunter-green);
+  box-shadow: 0 0 0 3px rgba(49, 92, 43, 0.2);
 }
 
-.submit {
-  padding: 10px 22px;
-  border: none;
-  border-radius: var(--radius-pill);
-  background: var(--ff-green);
-  color: var(--ff-white);
-  font-family: var(--font-commissioner), sans-serif;
-  font-weight: 800;
-  font-size: 14px;
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 38px;
   cursor: pointer;
+  /* The Select component's caret, in Hunter Green. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0h10L5 6z' fill='%23315c2b'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 10px 6px;
+}
+
+/* ---- Buttons ---- */
+
+/* Button, variant=primary (Hunter Green), size=md. Pill, Commissioner Bold,
+   1.5px border matching the fill, brightness on hover, scale on press. */
+.submit {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 15px;
+  padding: 10px 24px;
+  line-height: 1.2;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--hunter-green);
+  background: var(--hunter-green);
+  color: var(--white);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   white-space: nowrap;
+  transition: filter 0.15s ease-out, transform 0.1s ease-out;
 }
 
 .submit:hover:not(:disabled) {
-  background: var(--ff-green-700);
+  filter: brightness(0.92);
+}
+.submit:active:not(:disabled) {
+  transform: scale(0.98);
 }
 .submit:disabled {
-  opacity: 0.6;
-  cursor: progress;
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
-.error {
-  background: var(--neg-bg);
-  color: var(--neg);
-  border-radius: var(--radius-sm);
-  padding: 9px 13px;
+/* Button, variant=outline, size=sm — for row-level actions. */
+.rowBtn {
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
   font-size: 13px;
-  margin-bottom: 14px;
+  padding: 6px 16px;
+  line-height: 1.2;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: filter 0.15s ease-out, transform 0.1s ease-out, border-color 0.15s,
+    color 0.15s;
 }
+
+.rowBtn:hover:not(:disabled) {
+  border-color: var(--blazing-flame);
+  color: var(--blazing-flame);
+}
+.rowBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.rowBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.rowBtnPrimary {
+  border-color: var(--hunter-green);
+  color: var(--hunter-green);
+}
+.rowBtnPrimary:hover:not(:disabled) {
+  background: var(--hunter-green);
+  border-color: var(--hunter-green);
+  color: var(--white);
+  filter: brightness(0.92);
+}
+
+/* ---- Feedback ---- */
+
+/* Errors use Blazing Flame, matching the Input component's error treatment. */
+.error {
+  background: var(--neg-surface);
+  color: var(--neg);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+/* ---- Tables ---- */
 
 .tableWrap {
   overflow-x: auto;
 }
 
 .tableWrap table {
-  font-size: 13px;
-  min-width: 700px;
+  font-family: var(--font-secondary);
+  font-size: var(--text-sm);
+  min-width: 720px;
 }
 
+/* A hairline rule under the header rather than a filled band — the brand uses
+   thin rules as separators, not heavy blocks. */
 .tableWrap th {
   text-align: left;
-  font-size: 10px;
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-caps);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--ff-green);
-  background: var(--ff-green-100);
-  padding: 9px 12px;
+  color: var(--hunter-green);
+  padding: var(--space-3);
   white-space: nowrap;
+  border-bottom: 1.5px solid var(--hunter-green);
 }
 
 .tableWrap td {
-  padding: 9px 12px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-3);
+  border-bottom: var(--border-hairline);
   white-space: nowrap;
+}
+
+.tableWrap tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .empty {
   color: var(--text-muted);
-  font-size: 14px;
-  padding: 22px 0;
+  font-size: var(--text-sm);
+  padding: var(--space-5) 0;
   text-align: center;
 }
 
+/* ---- Badge ---- */
+
+/* Badge component: solid brand fill, white text, 6px radius, Commissioner Bold
+   12px, letterspaced uppercase. Not the tinted pills used previously. */
 .pill {
   display: inline-block;
-  border-radius: var(--radius-pill);
-  padding: 2px 10px;
-  font-size: 11px;
-  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .pillIn {
-  background: var(--pos-bg);
-  color: var(--pos);
+  background: var(--hunter-green);
+  color: var(--white);
 }
 .pillOut {
-  background: var(--neg-bg);
-  color: var(--neg);
+  background: var(--blazing-flame);
+  color: var(--white);
 }
 .pillPending {
-  background: var(--ff-orange-100);
-  color: var(--ff-orange-700);
+  background: var(--harvest-gold);
+  color: var(--white);
 }
 .pillDone {
-  background: var(--pos-bg);
-  color: var(--pos);
+  background: var(--hunter-green);
+  color: var(--white);
 }
 .pillDead {
-  background: #eee;
-  color: #777;
-}
-
-.rowBtn {
-  background: none;
-  border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  color: var(--text-muted);
-}
-
-.rowBtn:hover {
-  border-color: var(--ff-orange);
-  color: var(--ff-orange);
-}
-
-.rowBtnPrimary {
-  border-color: var(--ff-green);
-  color: var(--ff-green);
-}
-.rowBtnPrimary:hover {
-  background: var(--ff-green);
-  color: var(--ff-white);
+  background: var(--vanilla-custard);
+  color: var(--pitch-black);
 }

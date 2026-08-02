@@ -61,11 +61,11 @@ export default async function InventoryPage() {
       </header>
 
       <section className={styles.summary}>
-        <div className={styles.stat}>
+        <div className={`${styles.stat} ${styles.brand}`}>
           <span className={styles.statLabel}>At cost</span>
           <span className={`${styles.statValue} num`}>{formatKobo(atCost)}</span>
         </div>
-        <div className={styles.stat}>
+        <div className={`${styles.stat} ${styles.brand}`}>
           <span className={styles.statLabel}>At market</span>
           <span className={`${styles.statValue} num`}>{formatKobo(atMarket)}</span>
         </div>
@@ -83,7 +83,7 @@ export default async function InventoryPage() {
       />
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Stock on hand</h2>
+        <h2 className={styles.panelTitle}>Stock on Hand.</h2>
         {lines.length === 0 ? (
           <p className={styles.empty}>No products yet. Add one above.</p>
         ) : (
@@ -136,7 +136,7 @@ export default async function InventoryPage() {
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Recent movements</h2>
+        <h2 className={styles.panelTitle}>Recent Movements.</h2>
         {recent.length === 0 ? (
           <p className={styles.empty}>No movements yet.</p>
         ) : (

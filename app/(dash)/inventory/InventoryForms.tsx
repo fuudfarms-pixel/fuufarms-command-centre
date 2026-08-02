@@ -19,7 +19,7 @@ export function InventoryForms({
   return (
     <>
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Add a product</h2>
+        <h2 className={styles.panelTitle}>Add a Product.</h2>
         <Form action={createItem} submitLabel="Add">
           <Field label="Product" name="product" placeholder="Palm oil" />
           <Field label="Unit" name="unit" options={UNITS.map((u) => ({ value: u, label: u }))} />
@@ -31,7 +31,7 @@ export function InventoryForms({
 
       {items.length > 0 && (
         <section className={styles.panel}>
-          <h2 className={styles.panelTitle}>Receive stock</h2>
+          <h2 className={styles.panelTitle}>Receive Stock.</h2>
           <Form action={receiveStock} submitLabel="Receive">
             <Field label="Product" name="itemId" options={options} />
             <Field label="Quantity" name="qty" placeholder="500" />
@@ -60,7 +60,7 @@ export function InventoryForms({
 
       {canAdjust && items.length > 0 && (
         <section className={styles.panel}>
-          <h2 className={styles.panelTitle}>Adjust or write off</h2>
+          <h2 className={styles.panelTitle}>Adjust or Write Off.</h2>
           <Form action={adjustStock} submitLabel="Adjust">
             <Field label="Product" name="itemId" options={options} />
             <Field label="Change (+/−)" name="delta" placeholder="-12" />

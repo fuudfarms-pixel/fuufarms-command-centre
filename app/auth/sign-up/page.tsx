@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LogoStacked, LeafWatermark } from '@/components/Brand';
 import Link from 'next/link';
 import { SignUpForm } from './SignUpForm';
 import styles from '../auth.module.css';
@@ -12,13 +13,10 @@ export default function SignUpPage() {
 
   return (
     <main className={styles.shell}>
+      <LeafWatermark className={styles.watermark} />
       <div className={styles.card}>
         <div className={styles.brand}>
-          <span className={styles.mark}>FF</span>
-          <span>
-            <span className={styles.wordmark}>FUUD FARMS</span>
-            <span className={styles.sub}>Command Centre</span>
-          </span>
+          <LogoStacked />
         </div>
 
         <h1 className={styles.title}>Create account</h1>

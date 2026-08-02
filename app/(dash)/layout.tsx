@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { requireMember } from '@/lib/auth/guard';
 import { canManageUsers } from '@/lib/auth/roles';
+import { Logo } from '@/components/Brand';
 import { signOut } from '../auth/actions';
+import { Nav } from './Nav';
 import styles from './shell.module.css';
 
 const LINKS = [
@@ -23,21 +25,11 @@ export default async function DashLayout({ children }: { children: React.ReactNo
     <div className={styles.wrap}>
       <header className={styles.bar}>
         <div className={styles.inner}>
-          <Link href="/" className={styles.brand}>
-            <span className={styles.mark}>FF</span>
-            <span>
-              <span className={styles.wordmark}>FUUD FARMS</span>
-              <span className={styles.sub}>Command Centre</span>
-            </span>
+          <Link href="/" className={styles.brand} aria-label="Fuud Farms Command Centre">
+            <Logo onColour height={34} className={styles.logo} />
           </Link>
 
-          <nav className={styles.nav}>
-            {links.map((l) => (
-              <Link key={l.href} href={l.href} className={styles.link}>
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+          <Nav links={links} />
 
           <form action={signOut} className={styles.out}>
             <span className={styles.who} title={user.email}>

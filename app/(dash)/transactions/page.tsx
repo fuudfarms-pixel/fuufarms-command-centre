@@ -32,7 +32,7 @@ export default async function TransactionsPage() {
       </header>
 
       <section className={styles.summary}>
-        <div className={styles.stat}>
+        <div className={`${styles.stat} ${styles.brand}`}>
           <span className={styles.statLabel}>Income</span>
           <span className={`${styles.statValue} num pos`}>{formatKobo(income)}</span>
         </div>
@@ -49,12 +49,12 @@ export default async function TransactionsPage() {
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Record a transaction</h2>
+        <h2 className={styles.panelTitle}>Record a Transaction.</h2>
         <NewTransaction />
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Ledger</h2>
+        <h2 className={styles.panelTitle}>Ledger.</h2>
         {rows.length === 0 ? (
           <p className={styles.empty}>Nothing recorded yet.</p>
         ) : (

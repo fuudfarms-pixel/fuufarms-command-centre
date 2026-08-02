@@ -31,7 +31,7 @@ export default async function AssetsPage() {
       </header>
 
       <section className={styles.summary}>
-        <div className={styles.stat}>
+        <div className={`${styles.stat} ${styles.brand}`}>
           <span className={styles.statLabel}>Total held</span>
           <span className={`${styles.statValue} num`}>{formatKobo(total)}</span>
         </div>
@@ -44,12 +44,12 @@ export default async function AssetsPage() {
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Register an asset</h2>
+        <h2 className={styles.panelTitle}>Register an Asset.</h2>
         <NewAsset />
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.panelTitle}>Register</h2>
+        <h2 className={styles.panelTitle}>Register.</h2>
         {rows.length === 0 ? (
           <p className={styles.empty}>Nothing registered yet.</p>
         ) : (

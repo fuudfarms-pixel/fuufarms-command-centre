@@ -2,121 +2,116 @@
   min-height: 100vh;
 }
 
+/* Hunter Green is the workhorse surface — the brand book uses one flat brand
+   colour per composition, so the bar carries it and the page stays off-white. */
 .bar {
-  background: var(--ff-green);
+  background: var(--hunter-green);
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 2px 12px rgba(20, 10, 1, 0.2);
 }
 
 .inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 10px 20px;
+  padding: var(--space-3) var(--space-5);
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: var(--space-5);
   flex-wrap: wrap;
 }
 
+/* The real secondary lockup on a coloured ground, not a drawn substitute. */
 .brand {
   display: flex;
   align-items: center;
-  gap: 9px;
-  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.mark {
-  background: var(--ff-orange);
-  color: var(--ff-white);
-  font-family: var(--font-commissioner), sans-serif;
-  font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  border-radius: var(--radius-sm);
-  padding: 5px 9px;
-}
-
-.wordmark {
+.logo {
+  height: 34px;
+  width: auto;
   display: block;
-  font-family: var(--font-commissioner), sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  color: var(--ff-white);
-  line-height: 1.2;
-}
-
-.sub {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ff-cream);
 }
 
 .nav {
   display: flex;
-  gap: 4px;
+  gap: var(--space-5);
   flex: 1;
   flex-wrap: wrap;
 }
 
+/* Tabs component: Commissioner, 15px, active gains weight and a 2.5px Blazing
+   Flame underline. On green the resting state is custard rather than muted
+   brown, which would disappear. */
 .link {
-  color: var(--ff-cream);
-  text-decoration: none;
-  font-family: var(--font-commissioner), sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  padding: 7px 12px;
-  border-radius: var(--radius-pill);
+  font-family: var(--font-primary);
+  font-size: 15px;
+  font-weight: var(--weight-regular);
+  color: var(--vanilla-custard);
+  padding: var(--space-2) 2px;
+  border-bottom: 2.5px solid transparent;
   white-space: nowrap;
+  transition: color 0.15s;
 }
 
 .link:hover {
-  background: var(--ff-green-700);
-  color: var(--ff-white);
+  color: var(--white);
+}
+
+.linkActive {
+  color: var(--white);
+  font-weight: var(--weight-bold);
+  border-bottom-color: var(--blazing-flame);
 }
 
 .out {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
 }
 
 .who {
-  color: var(--ff-cream);
-  font-size: 12px;
+  font-family: var(--font-secondary);
+  color: var(--vanilla-custard);
+  font-size: var(--text-xs);
   max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* Button, variant=ghost on a coloured ground. */
 .signout {
-  background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  color: var(--ff-white);
+  font-family: var(--font-primary);
+  font-weight: var(--weight-bold);
+  font-size: 13px;
+  padding: 6px 16px;
+  line-height: 1.2;
   border-radius: var(--radius-pill);
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 700;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  background: transparent;
+  color: var(--white);
   cursor: pointer;
+  transition: filter 0.15s ease-out, transform 0.1s ease-out, background 0.15s;
 }
 
 .signout:hover {
-  background: var(--ff-orange);
-  border-color: var(--ff-orange);
+  background: var(--blazing-flame);
+  border-color: var(--blazing-flame);
+}
+.signout:active {
+  transform: scale(0.98);
 }
 
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .inner {
-    gap: 12px;
+    gap: var(--space-3);
   }
   .nav {
     order: 3;
     width: 100%;
     overflow-x: auto;
+    gap: var(--space-4);
   }
 }
